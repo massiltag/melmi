@@ -140,11 +140,11 @@ __pycache__/
 celerybeat-schedule
 
 # dotenv
-.env
-.env.local
-.env.development
-.env.test
-.env.production
+# .env
+# .env.local
+# .env.development
+# .env.test
+# .env.production
 
 # flask-admin's file upload folder
 uploads/
@@ -174,6 +174,3 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
-
-# Static files
-static/
