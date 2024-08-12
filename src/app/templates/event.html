@@ -1,0 +1,153 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h3 style="margin-top: 0; margin-bottom: 0">Nom de l'évènement</h3>
+    <h1>{{ event.name }}</h1>
+
+    {% if availabilities|length > 0 %}
+        <h3>Disponibilités communes ✨</h3>
+        <div class="availability-container">
+            {% if best_time_slots and best_time_slots|length > 0 %}
+                <div id="common-calendar"></div>
+            {% else %}
+                <p>Aucune date commune disponible, faites un effort 😒.</p>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <h3>Saisis tes disponibilités 📅</h3>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.name.label }}<br>
+            {{ form.name(size=32, id='name-input') }}
+        </p>
+        <p>
+            <div id="calendar"></div>
+        </p>
+        <p>
+            {{ form.available_times() }}
+        </p>
+        <p style="text-align: center;">{{ form.submit() }}</p>
+    </form>
+
+    {% if availabilities|length > 0 %}
+        <h3>Disponibilités des participants 👥</h3>
+        <ul>
+        {% for availability in availabilities %}
+            <li><b>{{ availability.name }}</b> : {{ availability.available_times|format_dates }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css' rel='stylesheet' />
+    <!-- Importation du fichier de langue française -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/locales/fr.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js'></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var commonCalendarEl = document.getElementById('common-calendar');
+            var calendarEl = document.getElementById('calendar');
+            var today = new Date().toISOString().split('T')[0]; // Date actuelle au format AAAA-MM-JJ
+
+            if (commonCalendarEl) {
+                var commonCalendar = new FullCalendar.Calendar(commonCalendarEl, {
+                    initialView: 'dayGridMonth',
+                    contentHeight: 'auto',
+                    locale: 'fr',  // Configurer le calendrier en français
+                    firstDay: 1,   // Commencer la semaine par lundi
+                    buttonText: {
+                        today: 'Auj.'  // Modifier le texte du bouton "Today"
+                    },
+                    events: [
+                        {% for slot in best_time_slots %}
+                        {
+                            title: 'Disponible',
+                            start: '{{ slot[0].isoformat() }}',
+                            allDay: true
+                        },
+                        {% endfor %}
+                    ],
+                    editable: false
+                });
+                commonCalendar.render();
+            }
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                selectable: true,
+                contentHeight: 'auto',
+                locale: 'fr',  // Configurer le calendrier en français
+                firstDay: 1,   // Commencer la semaine par lundi
+                buttonText: {
+                    today: 'Auj.'  // Modifier le texte du bouton "Today"
+                },
+                handleWindowResize: true,
+                validRange: {
+                    start: today
+                },
+                windowResize: function(view) {
+                    if (window.innerWidth < 768) {
+                        calendar.setOption('dayMaxEvents', true); // allow "more" link when too many events
+                        calendar.setOption('aspectRatio', 1.5);
+                    } else {
+                        calendar.setOption('dayMaxEvents', false);
+                        calendar.setOption('aspectRatio', 2);
+                    }
+                },
+                dateClick: function(info) {
+                    var existingEvent = calendar.getEvents().find(function(event) {
+                        return event.startStr === info.dateStr;
+                    });
+
+                    if (existingEvent) {
+                        existingEvent.remove();
+                    } else {
+                        calendar.addEvent({
+                            title: 'Disponible',
+                            start: info.dateStr,
+                            allDay: true
+                        });
+                    }
+
+                    updateAvailabilityField();
+                },
+                editable: true,
+                eventClick: function(eventClickInfo) {
+                    eventClickInfo.event.remove();
+                    updateAvailabilityField();
+                }
+            });
+            calendar.render();
+
+            function updateAvailabilityField() {
+                var events = calendar.getEvents();
+                var availability = events.map(function(event) {
+                    let e = new Date(event.start);
+                    e.setDate(e.getDate() + 1);
+                    return e.toISOString().split('T')[0];
+                }).join(',');
+                document.querySelector('input[name="available_times"]').value = availability;
+            }
+
+            // Autocomplétion pour le champ "Ton prénom"
+            var nameInput = document.getElementById('name-input');
+            if (nameInput) {
+                $.getJSON('{{ url_for("main.get_names", event_id=event.id) }}', function(data) {
+                    $("#name-input").autocomplete({
+                        source: data,
+                        minLength: 0
+                    }).focus(function() {
+                        $(this).autocomplete("search", "");
+                    });
+                });
+            }
+        });
+    </script>
+{% endblock %}

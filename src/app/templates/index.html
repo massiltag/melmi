@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>Créer un évènement</h2>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.name.label }}<br>
+            {{ form.name(size=32) }}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
