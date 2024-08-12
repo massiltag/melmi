@@ -28,7 +28,7 @@ pip-log.txt
 pip-delete-this-directory.txt
 
 # Environments
-.env
+# .env
 .venv
 env/
 venv/
@@ -69,7 +69,7 @@ instance/
 dmypy.json
 
 # Environments
-.env
+# .env
 .venv
 env/
 venv/

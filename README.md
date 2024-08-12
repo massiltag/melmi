@@ -62,6 +62,7 @@
 5. **Run the application**:
 
     ```sh
+    # $env:FLASK_APP="src/app:create_app"
     flask run
     ```
 
@@ -103,7 +104,3 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ---
 
 *Happy organizing with Melmi!*
-
-
-$env:FLASK_APP="src/app:create_app"
-flask run
