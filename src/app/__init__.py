@@ -17,8 +17,8 @@ def create_app():
     csrf.init_app(app)
 
     # Importer et enregistrer les routes
-    from . import routes
-    app.register_blueprint(routes.bp)
+    from .routes import bp as main_bp
+    app.register_blueprint(main_bp)
 
     # Ajouter le filtre pour formater les dates
     @app.template_filter('format_dates')
