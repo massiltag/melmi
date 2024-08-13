@@ -19,7 +19,7 @@ header {
     background-color: #4CAF50; /* Couleur verte de la barre */
     color: white;
     padding: 10px 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre similaire à Material UI */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.26); /* Ombre similaire à Material UI */
     z-index: 1000; /* S'assurer que la barre reste au-dessus du contenu */
 }
 
@@ -29,6 +29,7 @@ header {
 
 .sticky-header .logo-chick {
     width: 27px;
+    margin-left: 1px;
 }
 
 h1 {
@@ -150,6 +151,51 @@ li {
     color: white;
 }
 
+/* Styles pour le bouton copier */
+.label {
+    margin: 17px 0 10px;
+}
+
+.copy-text {
+    position: relative;
+    /* padding: 10px; */
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    display: flex;
+}
+
+.copy-text input.text {
+    color: #555;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    margin-top: 0;
+}
+
+.copy-text button {
+    padding: 10px;
+    background: #5784f5;
+    color: #fff;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    border-radius: 0 10px 10px 0; /*10px*/
+    cursor: pointer;
+}
+
+.copy-text button:active {
+    background: #809ce2;
+}
+
+.copy-icon {
+    width: 18px;
+    filter: invert(1);
+    transform: translateY(2px);
+}
+
+
+/* Styles pour les écrans de petite taille */
 @media (max-width: 768px) {
     .fc .fc-toolbar {
         flex-wrap: wrap;

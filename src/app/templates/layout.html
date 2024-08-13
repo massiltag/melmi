@@ -5,13 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Melmi</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <!-- Inclure FullCalendar CSS -->
+    <!-- FullCalendar -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/locales/fr.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js'></script>
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css' rel='stylesheet' />
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     {% block head %}{% endblock %}
 </head>
 <body>
     <header class="sticky-header">
-        <img class="logo-txt" src="{{ url_for('static', filename='img/melmi.png') }}" alt="Melmi">
+        <i class="bi bi-copy"></i>
+        <img class="logo-txt" src="{{ url_for('static', filename='img/melmi-2.png') }}" alt="Melmi">
         <img class="logo-chick" src="{{ url_for('static', filename='img/chick.png') }}" alt="Melmi">
     </header>
 

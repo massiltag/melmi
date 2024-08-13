@@ -1,13 +1,35 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <h2>Créer un évènement</h2>
+    <p>
+        Tu galères à trouver une date qui convienne à tout le monde ? Plus de casse-tête ! 🎉<br>
+    </p>
+    <p>
+        Crée un événement et laisse tes amis choisir leurs dispos. 🗓️
+    </p>
+    <h2 style="margin-top: 32px;">Créer un évènement</h2>
     <form method="POST">
         {{ form.hidden_tag() }}
         <p>
             {{ form.name.label }}<br>
-            {{ form.name(size=32) }}
+            {{ form.name(size=32, id='event-name-input') }}
         </p>
-        <p>{{ form.submit() }}</p>
+        <p style="text-align: center;">{{ form.submit() }}</p>
     </form>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var eventNameInput = document.getElementById('event-name-input');
+            
+            if (eventNameInput) {
+                eventNameInput.addEventListener('input', function() {
+                    if (this.value.length > 0) {
+                        this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1);
+                    }
+                });
+            }
+        });
+    </script>
 {% endblock %}
