@@ -104,3 +104,10 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ---
 
 *Happy organizing with Melmi!*
+
+
+#### Misc
+```
+gunicorn --chdir src/ --workers 3 --bind 0.0.0.0:8000 "app:create_app()"
+ssh -R 80:localhost:8000 serveo.net
+```

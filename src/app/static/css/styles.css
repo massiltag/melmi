@@ -1,3 +1,9 @@
+:root {
+    --primary-color: #F5BA11;
+    --secondary-color: #313131;
+    --green: #4CAF50;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -7,7 +13,7 @@ body {
 }
 
 header {
-    background-color: #4CAF50;
+    background-color: var(--primary-color);
     color: white;
     text-align: center;
     padding: 1rem 0;
@@ -16,7 +22,7 @@ header {
 .sticky-header {
     position: sticky;
     top: 0;
-    background-color: #4CAF50; /* Couleur verte de la barre */
+    background-color: var(--secondary-color); /* Couleur verte de la barre */
     color: white;
     padding: 10px 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.26); /* Ombre similaire à Material UI */
@@ -25,11 +31,13 @@ header {
 
 .sticky-header .logo-txt {
     width: 140px;
+    filter: hue-rotate(340deg);
 }
 
 .sticky-header .logo-chick {
     width: 27px;
     margin-left: 1px;
+    filter: hue-rotate(340deg);
 }
 
 h1 {
@@ -65,10 +73,11 @@ input[type="text"], textarea {
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 1rem;
+    box-sizing: border-box;
 }
 
 input[type="submit"] {
-    background-color: #4CAF50;
+    background-color: var(--primary-color);
     color: white;
     padding: 0.75rem 1.5rem;
     border: none;
@@ -108,12 +117,23 @@ li {
     margin-bottom: 20px;
 }
 
+/* Styles pour le calendrier */
 .fc .fc-toolbar h2 {
     text-transform: capitalize !important; /* Forcer la capitalisation */
 }
 
 .fc .fc-today-button {
     display: none;
+}
+
+.fc .fc-button-primary, .fc-button-primary:disabled {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.fc .fc-button-primary:disabled {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
 /* Styles pour l'autocomplétion */
@@ -147,7 +167,7 @@ li {
 }
 
 .ui-menu-item-wrapper.ui-state-active {
-    background-color: #4CAF50;
+    background-color: var(--primary-color);
     color: white;
 }
 
@@ -175,7 +195,7 @@ li {
 
 .copy-text button {
     padding: 10px;
-    background: #5784f5;
+    background: var(--primary-color);
     color: #fff;
     font-size: 18px;
     border: none;
@@ -193,7 +213,6 @@ li {
     filter: invert(1);
     transform: translateY(2px);
 }
-
 
 /* Styles pour les écrans de petite taille */
 @media (max-width: 768px) {
