@@ -82,7 +82,7 @@ venv.bak/
 coverage/
 
 # Flask-Migrate
-migrations/
+# migrations/
 
 # Jupyter Notebook
 .ipynb_checkpoints
@@ -151,9 +151,6 @@ uploads/
 
 # SQLAlchemy database
 *.sqlite3
-
-# Alembic migrations
-migrations/
 
 # Distribution / packaging
 .Python
