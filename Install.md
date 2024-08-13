@@ -3,7 +3,7 @@
 ## Prérequis
 
 - Avoir un accès SSH à votre serveur Linux.
-- Avoir un domaine enregistré (ex: `melmi.fr`).
+- Avoir un domaine enregistré.
 - Avoir un compte Cloudflare configuré pour votre domaine.
 
 ## Étapes
